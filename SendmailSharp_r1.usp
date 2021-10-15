@@ -1,0 +1,100 @@
+/*
+Dealer Name: Crestron Electronics
+Programmer:  Monte Thyden
+Comments:
+*/
+
+//*****     COMPILER     *****
+
+#PRINT_TO_TRACE
+#DEFAULT_VOLATILE
+#ENABLE_TRACE
+#ENCODING_ASCII
+
+#HELP_BEGIN
+   This module utilizes the CrestronMailFunctions features with Crestron's SIMPL# framework. 
+It supports TLS encryption but 2 factor authentication has to be turned off.
+Gmail/Yahoo/Microsoft Live SMTP servers have been verified.
+#HELP_END
+
+
+//*****    INCLUDES      *****
+#USER_SIMPLSHARP_LIBRARY "SendMailSharp" 
+
+//*****       IOs        *****
+digital_input Send, attachmentTrue;
+
+string_input sendTo[50], sendCC[200], subject[200], body[1000], attachment[2000];
+
+string_output Error_msg;
+
+string_parameter _skip_, _skip_, _skip_, _skip_, _skip_, _skip_, _skip_, server[100], user[100], password[100], sendfrom[100];
+
+integer_parameter port;
+
+#begin_parameter_properties port
+	propvalidunits = unitdecimal;
+	propdefaultunit = unitdecimal;
+	propdefaultvalue = 587d;
+#end_parameter_properties
+
+#begin_parameter_properties server
+	propvalidunits = unitstring;
+	propdefaultunit = unitstring;
+	propdefaultvalue = "smtp.gmail.com";	
+#end_parameter_properties
+
+#begin_parameter_properties user
+	propvalidunits = unitstring;
+	propdefaultunit = unitstring;
+	propdefaultvalue = "username";	
+#end_parameter_properties
+
+#begin_parameter_properties password
+	propvalidunits = unitstring;
+	propdefaultunit = unitstring;
+	propdefaultvalue = "password";	
+#end_parameter_properties
+
+#begin_parameter_properties sendfrom
+	propvalidunits = unitstring;
+	propdefaultunit = unitstring;
+	propdefaultvalue = "user@domain.com";	
+#end_parameter_properties
+
+Mail myMail;
+
+signed_integer errcode;
+
+//*****     EVENTS       *****
+
+push Send
+{
+	myMail.server = server;
+	myMail.port = port;
+	myMail.user = user;
+	myMail.password = password;
+	myMail.sendFrom = sendFrom;
+	myMail.sendTo = sendTo;
+	myMail.sendCC = sendCC;
+	myMail.body = body;
+	myMail.subject = subject;
+    if(attachmentTrue)
+    {
+        myMail.attachmentnum = 1;
+        myMail.attachment = attachment;
+    }
+    else
+    { 
+        myMail.attachmentnum = 0;
+	    myMail.SendEMail();
+        myMail.attachment = "";
+    }
+	Error_msg = myMail.errmsg;
+}
+
+Function Main()
+{
+    WaitForInitializationComplete();
+}
+
