@@ -23317,7 +23317,7 @@
             Set the value of a JSON object in the database.
             <para>The is the same as calling <see cref="M:Crestron.SimplSharp.JsonDb.Set(System.String,System.Boolean,Crestron.SimplSharp.JsonDb.eSaveType)"/>, with partial set to true and <see cref="F:Crestron.SimplSharp.JsonDb.eSaveType.DataStored"/> as parameters.</para>
             </summary>
-            <param name="json">JSON object to be stored.</param> 
+            <param name="jsonObj">JSON object to be stored.</param> 
             <returns>See <see cref="T:Crestron.SimplSharp.JsonDb.eJsonDbResult"/></returns>
             <exception cref="T:System.NotSupportedException">This version of firmware does not support JsonDb feature.</exception>
         </member>
@@ -23325,7 +23325,7 @@
             <summary>
             Set the value of a JSON object in the database.
             </summary>
-            <param name="json">JSON object to be stored.</param>
+            <param name="jsonObj">JSON object to be stored.</param>
             <param name="partial">false: entire JSON object will be written, overwriting any existing values;
             <para> true: update existing object with members in the JSON being written. (typical)</para>
             </param>
@@ -23385,7 +23385,7 @@
             <summary>
             Method to remove the subscription for object changes in the database.
             </summary>
-            <param name="json">JSON object to unsubscribe from.</param>
+            <param name="subscription">JSON object to unsubscribe from.</param>
             <returns>See <see cref="T:Crestron.SimplSharp.JsonDb.eJsonDbResult"/></returns>
             <exception cref="T:System.NotSupportedException">This version of firmware does not support JsonDb feature.</exception>
         </member>
@@ -23393,7 +23393,7 @@
             <summary>
             Method to remove a callback from the subscription for object changes in the database.
             </summary>
-            <param name="json">JSON object where callback will be unsubscribed from.</param>
+            <param name="subscription">JSON object where callback will be unsubscribed from.</param>
             <param name="callbacks">List of callback to unsubscribe from.</param>
             <returns>See <see cref="T:Crestron.SimplSharp.JsonDb.eJsonDbResult"/></returns>
             <exception cref="T:System.NotSupportedException">This version of firmware does not support JsonDb feature.</exception>
@@ -23417,7 +23417,7 @@
             Method to set JsonDb reconnect parameters. 
             </summary>
             <param name="attempts"> The number of times JsonDb should attempt to reconnect.</param>
-            <param name="delay">How long JsonDb should wait between reconnect attempts.</param>
+            <param name="delay">How long JsonDb should wait between reconnect attempts in ms.</param>
         </member>
         <member name="M:Crestron.SimplSharp.JsonDb.SetTimeout(System.UInt32)">
             <summary>
