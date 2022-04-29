@@ -1,0 +1,10 @@
+<Device Model="MC4">
+   <Network Type="Cresnet" Id="01">
+      <Device Model="HZ-KPCN" DeviceId="11"/>
+      <Device Model="HZ-KPCN" DeviceId="12"/>
+   </Network>
+   <Network Type="Ethernet" Id="02"/>
+   <Network Type="RF" Id="08">
+      <Device Model="HR-310,HRI-310" DeviceId="0A" Name="HR-310"/>
+   </Network>
+</Device>
